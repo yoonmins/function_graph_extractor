@@ -1,0 +1,81 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Plotter</title>
+    <style>
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        #conditions {
+            display: inline-block;
+            margin-left: 20px;
+        }
+    </style>
+    <script>
+        function updateParameterFields() {
+            const functionType = document.getElementById("function_type").value;
+            const aField = document.getElementById("a");
+            const bField = document.getElementById("b");
+            const cField = document.getElementById("c");
+            const conditions = document.getElementById("conditions");
+
+            if (functionType === "linear") {
+                aField.disabled = false;
+                bField.disabled = false;
+                cField.disabled = true;
+                cField.value = "0";
+                conditions.innerHTML = "<strong>일차 함수:</strong> y = ax + b. 특별한 조건 없음.";
+            } else if (functionType === "quadratic") {
+                aField.disabled = false;
+                bField.disabled = false;
+                cField.disabled = false;
+                conditions.innerHTML = "<strong>이차 함수:</strong> y = ax² + bx + c. 특별한 조건 없음.";
+            } else if (functionType === "log") {
+                aField.disabled = false;
+                bField.disabled = false;
+                cField.disabled = true;
+                cField.value = "0";
+                conditions.innerHTML = "<strong>로그 함수:</strong> y = logₐ(x) + b. a > 0, a ≠ 1, x > 0.";
+            } else if (functionType === "exponential") {
+                aField.disabled = false;
+                bField.disabled = true;
+                cField.disabled = true;
+                bField.value = "0";
+                cField.value = "0";
+                conditions.innerHTML = "<strong>지수 함수:</strong> y = aˣ. a > 0, a ≠ 1.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>함수 그래프 그리기</h1>
+    <form id="plot-form" action="/plot" method="post" target="plot-frame">
+        <div>
+            <label for="function_type" style="display: inline-block;">함수 선택:</label>
+            <select name="function_type" id="function_type" onchange="updateParameterFields()" style="display: inline-block;">
+                <option value="linear">일차 함수</option>
+                <option value="quadratic">이차 함수</option>
+                <option value="log">로그 함수</option>
+                <option value="exponential">지수 함수</option>
+            </select>
+            <div id="conditions"><strong>조건:</strong> 함수를 선택하세요.</div>
+        </div>
+        <label for="a">파라미터 a:</label>
+        <input type="text" name="a" id="a" value="1">
+        <label for="b">파라미터 b:</label>
+        <input type="text" name="b" id="b" value="0">
+        <label for="c">파라미터 c:</label>
+        <input type="text" name="c" id="c" value="0">
+        <button type="submit">그래프 그리기</button>
+    </form>
+    <iframe name="plot-frame" style="width:100%; height:500px; border:none;"></iframe>
+</body>
+</html>
+-->
