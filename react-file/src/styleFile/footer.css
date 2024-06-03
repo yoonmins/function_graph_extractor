@@ -4,6 +4,14 @@ footer{
 
 footer p{
     padding-top: 10px;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+footer p{
     display: block;
     font-size: 12px;
 }
