@@ -6,7 +6,6 @@ import Log from './viewPage/LogViewPage';
 import Line from './viewPage/LineViewPage';
 import Qua from './viewPage/QuaViewPage';
 
-import logo from './logo.svg';
 import './App.css';
 import './styleFile/button.css';
 import './styleFile/footer.css';

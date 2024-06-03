@@ -89,3 +89,20 @@
     margin-top: 60px;
     box-shadow: 3px 2px 8px gray;
 }
+
+.btnHomeStart{
+    background-color: #0069FF;
+    border-radius: 10px;
+    border-color: #0069FF;
+    width: 30%;
+    height: 60px;
+    color: white;
+    font-size: 16px;
+    font-weight: 650;
+    margin-top: 60px;
+    box-shadow: 3px 2px 8px gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration-line : none;
+}

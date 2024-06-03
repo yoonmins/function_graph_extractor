@@ -1,21 +1,30 @@
 from fastapi import FastAPI, Form
-from fastapi.responses import HTMLResponse
+from fastapi.responses import   FileResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import numpy as np
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 import random
+import os
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root():
-    with open("static/index.html", "r", encoding="utf-8") as f:
-        html_content = f.read()
-    return HTMLResponse(content=html_content)
+# Serve React app
+@app.get("/")
+async def read_index():
+    return FileResponse('static/index.html')
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Update this with the frontend URL or use ["*"] to allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/plot")
 async def plot(function_type: str = Form(...)):
@@ -28,12 +37,12 @@ async def plot(function_type: str = Form(...)):
     y_range = 10
 
     # 그래프와 함수 식 생성
-    if function_type == "linear":
-        x = np.linspace(-x_range, x_range, 400)
+    if function_type == "linear": 
+        x = np.linspace(-x_range, x_range, 400) #일차함수
         y = a * x + b
         function_formula = f"y = {a}x + {b}"
-    elif function_type == "quadratic":
-        x = np.linspace(-x_range, x_range, 400)
+    elif function_type == "quadratic": 
+        x = np.linspace(-x_range, x_range, 400) #이차함수
         y = a * x**2 + b * x + c
         function_formula = f"y = {a}x² + {b}x + {c}"
     elif function_type == "log":
@@ -47,7 +56,7 @@ async def plot(function_type: str = Form(...)):
         y = a ** x
         function_formula = f"y = {a}^x"
     else:
-        return HTMLResponse(content="Invalid function type", status_code=400)
+        return JSONResponse(content={"error": "Invalid function type"}, status_code=400)
     
     # 그래프 생성
     plt.figure()
@@ -67,14 +76,8 @@ async def plot(function_type: str = Form(...)):
     buf.close()
     plt.close()
 
-    # HTML 응답 생성
-    html_response = f"""
-    <h2>{function_type.capitalize()} Function</h2>
-    <p>Function: {function_formula}</p>
-    <img src="data:image/png;base64,{image_base64}" />
-    """
-    return HTMLResponse(content=html_response)
+    return JSONResponse(content={"formula": function_formula, "image": image_base64})
 
-if __name__ == "__main__":
+if __name__ == "__wsRandomFn__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run(app, host="127.0.0.1", port=3000, reload=True)

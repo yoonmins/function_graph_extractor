@@ -1,0 +1,12 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "Backend service using FastAPI",
+    "main": "wsRandomFn.py",
+    "scripts": {
+      "start": "uvicorn wsRandomFn:app --host 0.0.0.0 --port 3000 --reload"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {}
+  }
